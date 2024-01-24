@@ -69,6 +69,9 @@ docSelectTelop.addEventListener('change', (e) => {
 
 // リセット
 docButtonReset.onclick = () => {
+    NAME = ""
+    DESCRIPTION = ""
+
     docTelopName.value = "";
     docTelopDescription.innerHTML = "";
 }
