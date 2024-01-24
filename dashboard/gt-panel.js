@@ -2,13 +2,15 @@ const docInputFile = document.getElementById("input_file");
 const docSelectTelop = document.getElementById("select_telop");
 const docTelopName = document.getElementById("telop_name");
 const docTelopDescription = document.getElementById("telop_description");
-const docButtonReset = document.getElementById("reset")
-const docButtonSubmit = document.getElementById("submit")
+const docButtonReset = document.getElementById("reset");
+const docButtonSubmit = document.getElementById("submit");
 
-// const repValue = nodecg.replicant("repValue")
+const repValue = nodecg.Replicant("repValue");
 
-let inputData = "";
-let csvData = [];
+let INPUTDATA = "";
+let CSVDATA = [];
+let NAME = ""
+let DESCRIPTION = ""
 
 // ファイルのアップロード
 docInputFile.addEventListener('change', (e) => {
@@ -16,23 +18,23 @@ docInputFile.addEventListener('change', (e) => {
     reader.readAsText(e.target.files[0]);
 
     reader.onload = function(event) {
-        inputData = event.target.result;
-        input2Csv(inputData);
-        genSelectBox(csvData);
+        INPUTDATA = event.target.result;
+        input2Csv(INPUTDATA);
+        genSelectBox(CSVDATA);
         selectDefault();
     };
 });
 
 // csvファイルの読み込み
 function input2Csv(text) {
-    const inputData = text.replace(/\r/g, '').split('\n');
-    const lineCount = inputData.length;
+    const INPUTDATA = text.replace(/\r/g, '').split('\n');
+    const lineCount = INPUTDATA.length;
 
     for(let i=0; i<lineCount; i++) {
-        const pushdata = inputData[i].split(",");
-        
+        const pushdata = INPUTDATA[i].split(",");
+
         if(pushdata.length == 2) {
-            csvData.push(pushdata);
+            CSVDATA.push(pushdata);
         }
     }
 }
@@ -57,9 +59,12 @@ function selectDefault() {
 // テキストボックスに反映
 docSelectTelop.addEventListener('change', (e) => {
     const selectValue = e.target.value;
-    console.log(selectValue, csvData[selectValue]);
-    docTelopName.value = csvData[selectValue][0];
-    docTelopDescription.innerHTML = csvData[selectValue][1];
+
+    NAME = CSVDATA[selectValue][0];
+    DESCRIPTION = CSVDATA[selectValue][1];
+
+    docTelopName.value = NAME;
+    docTelopDescription.innerHTML = DESCRIPTION;
 });
 
 // リセット
@@ -69,6 +74,6 @@ docButtonReset.onclick = () => {
 }
 
 // 反映
-docButtonSubmit.onclick = () => { 
-    // repValue = [docTelopName.value, docTelopDescription.innerHTML];
+docButtonSubmit.onclick = () => {
+    repValue.value = [NAME, DESCRIPTION];
 }

@@ -1,0 +1,30 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "description": "20240202-ComENG_eSports_Racing_Event",
+  "main": "../../index.js",
+  "scripts": {
+    "start": "node ../.."
+  },
+  "nodecg": {
+    "compatibleRange": "^2.2.1",
+    "dashboardPanels": [
+      {
+        "name": "GT-panel",
+        "title": "GT",
+        "width": 2,
+        "file": "gt-panel.html"
+      }
+    ],
+    "graphics": [
+      {
+        "file": "gt.html",
+        "width": 720,
+        "height": 300
+      }
+    ]
+  },
+  "dependencies": {
+    "fitty": "^2.3.3"
+  }
+}
